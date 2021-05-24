@@ -2,6 +2,9 @@ import { StarIcon } from '@heroicons/react/solid';
 import Image from 'next/image';
 import { useState } from 'react';
 import Currency from 'react-currency-formatter';
+import { useDispatch } from 'react-redux';
+
+import { addToBasket } from '../slices/basketSlice';
 
 export type ProductType = {
     id: string
@@ -16,14 +19,23 @@ interface ProductProps {
     product: ProductType
 }
 
-export const Product: React.FC<ProductProps> = ({ product: { id, title, price, description, category, image } }) => {
+const MIN_RATING = 1;
+const MAX_RATING = 5;
 
-    const MIN_RATING = 1;
-    const MAX_RATING = 5;
+export const Product: React.FC<ProductProps> = ({ product: { id, title, price, description, category, image } }) => {
+    const dispatch = useDispatch();
+
     const [rating] = useState(
         Math.floor(Math.random() * (MAX_RATING - MIN_RATING + 1)) + MIN_RATING
     );
-    const hasPrime = useState(Math.random() < 0.5);
+    const [hasPrime] = useState(Math.random() < 0.5);
+
+    const addItemToBasket = () => {
+        const product = { id, title, price, rating, description, category, image, hasPrime }
+
+        // Sending the product as an action to the REDUX store... the basket slice
+        dispatch(addToBasket(product))
+    }
 
     return (
         <div className='flex relative flex-col bg-white m-5 z-30 p-10'>
@@ -46,11 +58,11 @@ export const Product: React.FC<ProductProps> = ({ product: { id, title, price, d
             </div>
             {hasPrime && (
                 <div className='flex items-center space-x-2 -mt-5'>
-                    <img className='w-12' src="https://links.papareact.com/fdw" alt="" />
+                    <img loading='lazy' className='w-12' src="https://links.papareact.com/fdw" alt="" />
                     <p className='text-xs text-gray-500'>Free Next-day Delivery</p>
                 </div>
             )}
-            <button className='button mt-auto'>Add to Basket</button>
+            <button onClick={addItemToBasket} className='button mt-auto'>Add to Basket</button>
         </div>
     )
 }
