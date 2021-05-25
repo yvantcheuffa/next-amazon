@@ -31,7 +31,7 @@ const Checkout = ({ }) => {
                         width={1020}
                         height={250}
                     />
-                    <div className='flex p-5 flex-col space-y-10 bg-white'>
+                    <div className='flex p-5 flex-col space-y-5 bg-white'>
                         <h1 className='text-3xl border-b pb-4'>{items.length !== 0 ? 'Your Shopping Basket' : 'Your Amazon Basket is empty.'}</h1>
                         {items.map((item, i) => (
                             <CheckoutProduct product={item} key={i} />

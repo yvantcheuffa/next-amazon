@@ -30,7 +30,7 @@ export const CheckoutProduct: React.FC<CheckoutProductProps> = ({ product: { id,
     }
 
     return (
-        <div className='grid grid-cols-5'>
+        <div className='grid grid-cols-5 border-b pb-5 last:border-none'>
             {/* Left side occupies 1 cell */}
             <Image
                 src={image}
@@ -39,9 +39,9 @@ export const CheckoutProduct: React.FC<CheckoutProductProps> = ({ product: { id,
                 objectFit='contain'
             />
             {/* Middle occupies 3 cells */}
-            <div className='col-span-3 mx-5'>
+            <div className='col-span-4 md:col-span-3 mx-5'>
                 <p>{title}</p>
-                <div className='flex'>
+                <div className='flex mt-2'>
                     {Array(rating).fill(0).map((_, i) => (
                         <StarIcon key={i} className='h-5 text-yellow-500' />
                     ))}
@@ -60,7 +60,7 @@ export const CheckoutProduct: React.FC<CheckoutProductProps> = ({ product: { id,
                 )}
             </div>
             {/* Right side occupies 1 cell */}
-            <div className='flex flex-col space-y-2 my-auto justify-end'>
+            <div className='mt-4 md:mt-0 col-span-full md:col-span-1 flex flex-col space-y-2 my-auto justify-end'>
                 <button onClick={addItemToBasket} className='button mt-auto'>Add to Basket</button>
                 <button onClick={removeItemFromBasket} className='button mt-auto'>Remove from Basket</button>
             </div>
